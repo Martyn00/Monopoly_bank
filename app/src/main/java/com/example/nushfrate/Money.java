@@ -9,7 +9,6 @@ public class Money {
     public void setSum(long sum) {
         this.sum = sum;
     }
-
     public long getSum(){
         return this.sum;
     }
@@ -20,5 +19,9 @@ public class Money {
 
     public void cresteBani(long s){
         setSum(getSum() + s);
+    }
+
+    public boolean checkSum(){
+        return false;
     }
 }
