@@ -34,21 +34,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         TextView theMoneyText = (TextView) findViewById(R.id.textView2);
-
+        String number;
         switch (view.getId()){
             case R.id.Pierde:
 
                 EditText loseMoney = (EditText) findViewById(R.id.editTextloseMoney);
-                bani.scadeBani(Long.parseLong(loseMoney.getText().toString()));
-                theMoneyText.setText(String.valueOf(bani.getSum()));
-                Toast.makeText(this, "Ai pierdut o tona de bani!", Toast.LENGTH_SHORT).show();
+                number = loseMoney.getText().toString();
+                if(!number.isEmpty()) {
+                    bani.scadeBani(Long.parseLong(number));
+                    theMoneyText.setText(String.valueOf(bani.getSum()));
+                    Toast.makeText(this, "Ai pierdut o tona de bani!", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             case R.id.Primeste:
                 EditText getMoney = (EditText) findViewById(R.id.editTextgetMoney);
-                bani.cresteBani(Long.parseLong(getMoney.getText().toString()));
-                theMoneyText.setText(String.valueOf(bani.getSum()));
-                Toast.makeText(this, "Ai primit o tona de bani!", Toast.LENGTH_SHORT).show();
+                number = getMoney.getText().toString();
+                if(!number.isEmpty()) {
+                    bani.cresteBani(Long.parseLong(number));
+                    theMoneyText.setText(String.valueOf(bani.getSum()));
+                    Toast.makeText(this, "Ai primit o tona de bani!", Toast.LENGTH_SHORT).show();
+                }
                 break;
 
             default:
