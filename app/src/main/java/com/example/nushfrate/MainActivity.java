@@ -11,17 +11,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    int getMoney, loseMoney;
-    int Money = 1500;
-
+    Money bani = new Money(1500);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         TextView theMoneyText = (TextView) findViewById(R.id.textView2);
-        theMoneyText.setText(String.valueOf(Money));
+        theMoneyText.setText(String.valueOf(bani.getSum()));
 
         Button btnPierde = (Button) findViewById(R.id.Pierde);
         Button btnPrimeste = (Button) findViewById(R.id.Primeste);
@@ -36,17 +33,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        TextView theMoneyText = (TextView) findViewById(R.id.textView2);
 
         switch (view.getId()){
             case R.id.Pierde:
-                loseMoney = Integer.valueOf(loseMoney);
-                Money = Money - loseMoney;
+
+                EditText loseMoney = (EditText) findViewById(R.id.editTextloseMoney);
+                bani.scadeBani(Long.parseLong(loseMoney.getText().toString()));
+                theMoneyText.setText(String.valueOf(bani.getSum()));
                 Toast.makeText(this, "Ai pierdut o tona de bani!", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.Primeste:
-                getMoney = Integer.valueOf(getMoney);
-                Money = Money + getMoney;
+                EditText getMoney = (EditText) findViewById(R.id.editTextgetMoney);
+                bani.cresteBani(Long.parseLong(getMoney.getText().toString()));
+                theMoneyText.setText(String.valueOf(bani.getSum()));
                 Toast.makeText(this, "Ai primit o tona de bani!", Toast.LENGTH_SHORT).show();
                 break;
 
