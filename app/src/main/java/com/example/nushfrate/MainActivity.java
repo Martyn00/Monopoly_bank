@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         TextView theMoneyText = (TextView) findViewById(R.id.textView2);
-        String number;
+        String number, prop;
         switch (view.getId()){
             case R.id.Pierde:
 
@@ -43,7 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(!number.isEmpty()) {
                     bani.scadeBani(Long.parseLong(number));
                     theMoneyText.setText(String.valueOf(bani.getSum()));
-                    Toast.makeText(this, "Ai pierdut o tona de bani!", Toast.LENGTH_SHORT).show();
+                    prop = "Ai pierdut " + number + " bani";
+                    Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
                 }
                 break;
 
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if(!number.isEmpty()) {
                     bani.cresteBani(Long.parseLong(number));
                     theMoneyText.setText(String.valueOf(bani.getSum()));
-                    Toast.makeText(this, "Ai primit o tona de bani!", Toast.LENGTH_SHORT).show();
+                    prop = "Ai castigat " + number + " bani";
+                    Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
                 }
                 break;
 
