@@ -1,5 +1,6 @@
 package com.example.nushfrate;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     bani.cresteBani(Long.parseLong(number));
                     theMoneyText.setText(String.valueOf(bani.getSum()));
                     prop = "Ai castigat " + number + " bani";
+                    MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.cha_ching);
+                    mediaPlayer.start();
                     Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
                 }
                 break;
