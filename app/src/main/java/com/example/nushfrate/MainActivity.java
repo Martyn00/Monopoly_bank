@@ -23,12 +23,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Button btnPierde = (Button) findViewById(R.id.Pierde);
         Button btnPrimeste = (Button) findViewById(R.id.Primeste);
+        Button btnQuickAdd = (Button) findViewById(R.id.Quickadd);
 
         btnPierde.setOnClickListener(this);
         btnPrimeste.setOnClickListener(this);
-
-        EditText getMoney = (EditText) findViewById(R.id.editTextgetMoney);
-        EditText loseMoney = (EditText) findViewById(R.id.editTextloseMoney);
+        btnQuickAdd.setOnClickListener(this);
 
     }
 
@@ -61,6 +60,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
                 }
                 break;
+
+            case R.id.Quickadd:
+                bani.cresteBani(200);
+                theMoneyText.setText(String.valueOf(bani.getSum()));
+                prop = "Saracule, ai trecut de start, poftim 200";
+                MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.cha_ching);
+                mediaPlayer.start();
+                Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
+
+             break;
+
 
             default:
                 throw new IllegalStateException("Unexpected value: " + view.getId());
