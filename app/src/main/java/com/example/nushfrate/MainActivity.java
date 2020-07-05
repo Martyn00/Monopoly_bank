@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (view.getId()){
             case R.id.Pierde:
 
-                EditText loseMoney = (EditText) findViewById(R.id.editTextloseMoney);
+                EditText loseMoney = (EditText) findViewById(R.id.editTextvalueMoney);
                 number = loseMoney.getText().toString();
                 if(!number.isEmpty()) {
                     bani.scadeBani(Long.parseLong(number));
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.Primeste:
-                EditText getMoney = (EditText) findViewById(R.id.editTextgetMoney);
+                EditText getMoney = (EditText) findViewById(R.id.editTextvalueMoney);
                 number = getMoney.getText().toString();
                 if(!number.isEmpty()) {
                     bani.cresteBani(Long.parseLong(number));
