@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.nio.charset.MalformedInputException;
@@ -16,6 +17,7 @@ import java.nio.charset.MalformedInputException;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     Money bani = new Money(1500);
+    int code = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,16 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String number, prop;
         switch (view.getId()){
             case R.id.Pierde:
-
-                EditText loseMoney = (EditText) findViewById(R.id.editTextvalueMoney);
-                number = loseMoney.getText().toString();
-                if(!number.isEmpty()) {
-                    bani.scadeBani(Long.parseLong(number));
-                    theMoneyText.setText(String.valueOf(bani.getSum()));
-                    prop = "Ai pierdut " + number + " bani";
-                    Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(MainActivity.this,Pop.class));
-                }
+                    Intent intent = new Intent(this, Pop.class);
+                    startActivityForResult(intent, code);
                 break;
 
             case R.id.Primeste:
@@ -57,12 +51,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 number = getMoney.getText().toString();
                 if(!number.isEmpty()) {
                     bani.cresteBani(Long.parseLong(number));
-                    theMoneyText.setText(String.valueOf(bani.getSum()));
                     prop = "Ai castigat " + number + " bani";
                     MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.cha_ching);
                     mediaPlayer.start();
                     startActivity(new Intent(MainActivity.this,Pop.class));
                     Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
+                    theMoneyText.setText(String.valueOf(bani.getSum()));
                 }
                 break;
 
@@ -73,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.cha_ching);
                 mediaPlayer.start();
                 Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
-
              break;
 
 
@@ -82,4 +75,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode ==  code){
+            if(resultCode == RESULT_OK){
+                String return_text = data.getStringExtra(Intent.EXTRA_TEXT);
+                if(!return_text.isEmpty()){
+                    bani.scadeBani(Long.parseLong(return_text));
+                    TextView theMoneyText = (TextView) findViewById(R.id.textView2);
+                    theMoneyText.setText(String.valueOf(bani.getSum()));
+                }
+            }
+        }
+    }
 }
