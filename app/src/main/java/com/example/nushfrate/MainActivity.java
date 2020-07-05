@@ -1,5 +1,6 @@
 package com.example.nushfrate;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.nio.charset.MalformedInputException;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     theMoneyText.setText(String.valueOf(bani.getSum()));
                     prop = "Ai pierdut " + number + " bani";
                     Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,Pop.class));
                 }
                 break;
 
@@ -57,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     prop = "Ai castigat " + number + " bani";
                     MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.cha_ching);
                     mediaPlayer.start();
+                    startActivity(new Intent(MainActivity.this,Pop.class));
                     Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
                 }
                 break;
