@@ -44,8 +44,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MediaPlayer mediaPlayer;
         switch (view.getId()){
             case R.id.Pierde:
-                    Intent intent = new Intent(this, Pop.class);
-                    startActivityForResult(intent, code);
+                mediaPlayer = MediaPlayer.create(this, R.raw.crowd_boo);
+                mediaPlayer.start();
+                Intent intent = new Intent(this, Pop.class);
+                startActivityForResult(intent, code);
                 break;
 
             case R.id.Primeste:
