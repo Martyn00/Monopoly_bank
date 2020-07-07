@@ -42,13 +42,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String number, prop;
         switch (view.getId()){
             case R.id.Pierde:
-                   //https://stackoverflow.com/questions/2091465/how-do-i-pass-data-between-activities-in-android-application
                     Intent intent = new Intent(this, Pop.class);
                     startActivityForResult(intent, code);
                 break;
 
             case R.id.Primeste:
-                startActivity(new Intent(MainActivity.this,Pop.class));
                 EditText getMoney = (EditText) findViewById(R.id.editTextvalueMoney);
                 number = getMoney.getText().toString();
                 if(!number.isEmpty()) {
@@ -56,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     prop = "Ai castigat " + number + " bani";
                     MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.cha_ching);
                     mediaPlayer.start();
+                    startActivity(new Intent(MainActivity.this,Pop.class));
                     Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
                     theMoneyText.setText(String.valueOf(bani.getSum()));
                 }
