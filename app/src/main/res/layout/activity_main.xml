@@ -18,7 +18,11 @@
         android:layout_marginEnd="106dp"
         android:layout_marginRight="106dp"
         android:visibility="visible"
-        android:background="@color/alb"
+        android:background="@color/Black"
+        android:textStyle="normal|bold"
+        android:gravity="center"
+        android:textColor="@color/GreenYellow"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
