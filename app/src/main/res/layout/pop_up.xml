@@ -4,26 +4,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#368C38">
+    android:layout_gravity="center"
+    android:background="#368C38"
+    android:theme="@style/AppTheme.Pop_up">
 
     <EditText
         android:id="@+id/editTextvalueMoney"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="210dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="4dp"
         android:ems="10"
         android:hint="Valoare bani"
-        android:inputType="number" />
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/button"
+        tools:layout_editor_absoluteX="195dp" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="179dp"
-        android:layout_marginRight="179dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteY="278dp" />
+        android:layout_marginEnd="160dp"
+        android:layout_marginRight="160dp"
+        android:layout_marginBottom="136dp"
+        android:text="Pierde"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
