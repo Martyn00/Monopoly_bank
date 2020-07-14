@@ -27,7 +27,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <ImageButton
         android:id="@+id/Primeste"
         android:layout_width="100sp"
         android:layout_height="100sp"
@@ -37,13 +37,14 @@
         android:layout_marginRight="30dp"
         android:layout_marginBottom="81dp"
         android:onClick="onClick"
+        android:background="@drawable/savemoney"
         android:text="@string/primeste"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Quickadd"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Primeste" />
 
-    <Button
+    <ImageButton
         android:id="@+id/Pierde"
         android:layout_width="100sp"
         android:layout_height="100sp"
@@ -52,12 +53,13 @@
         android:layout_marginBottom="81dp"
         android:onClick="onClick"
         android:text="@string/pierde"
+        android:background="@drawable/cry"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         tools:text="Pierde" />
 
 
-    <Button
+    <ImageButton
         android:id="@+id/Quickadd"
         android:layout_width="100sp"
         android:layout_height="100sp"
@@ -65,6 +67,7 @@
         android:layout_marginRight="28dp"
         android:layout_marginBottom="81dp"
         android:text="Quick Add 200"
+        android:background="@drawable/moneyyy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Pierde" />
 
