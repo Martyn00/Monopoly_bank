@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,9 +27,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         TextView theMoneyText = (TextView) findViewById(R.id.textView2);
         theMoneyText.setText(String.valueOf(bani.getSum()));
 
-        Button btnPierde = (Button) findViewById(R.id.Pierde);
-        Button btnPrimeste = (Button) findViewById(R.id.Primeste);
-        Button btnQuickAdd = (Button) findViewById(R.id.Quickadd);
+        ImageButton btnPierde = (ImageButton) findViewById(R.id.Pierde);
+        ImageButton btnPrimeste = (ImageButton) findViewById(R.id.Primeste);
+        ImageButton btnQuickAdd = (ImageButton) findViewById(R.id.Quickadd);
 
         btnPierde.setOnClickListener(this);
         btnPrimeste.setOnClickListener(this);
@@ -42,8 +43,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         String number, prop;
         switch (view.getId()){
             case R.id.Pierde:
-                    Intent intent = new Intent(this, Pop.class);
-                    startActivityForResult(intent, code);
+                mediaPlayer = MediaPlayer.create(this, R.raw.crowd_boo);
+                mediaPlayer.start();
+                Intent intent = new Intent(this, Pop.class);
+                startActivityForResult(intent, code);
                 break;
 
             case R.id.Primeste:
@@ -68,8 +71,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 mediaPlayer.start();
                 Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
              break;
-
-
             default:
                 throw new IllegalStateException("Unexpected value: " + view.getId());
         }
@@ -85,6 +86,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     bani.scadeBani(Long.parseLong(return_text));
                     TextView theMoneyText = (TextView) findViewById(R.id.textView2);
                     theMoneyText.setText(String.valueOf(bani.getSum()));
+                    if(bani.getSum() == 0){
+                        String prop = "Ai pierdut BOSS=(((";
+                        Toast.makeText(this, prop, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         }

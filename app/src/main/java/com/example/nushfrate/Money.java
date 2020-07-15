@@ -14,7 +14,11 @@ public class Money {
     }
 
     public void scadeBani(long s){
-        setSum(getSum() - s);
+        if(getSum() > s){
+            setSum(getSum() - s);
+        }else{
+            setSum(0);
+        }
     }
 
     public void cresteBani(long s){
