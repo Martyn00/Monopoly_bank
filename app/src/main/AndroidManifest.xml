@@ -15,12 +15,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Pop"
-            android:theme="@style/AppTheme.Pop_up"
-            ></activity>
-        <activity android:name=".Pop2"
-            android:theme="@style/AppTheme.Pop_up"
-        ></activity>
+        <activity
+            android:name=".Pop"
+            android:theme="@style/AppTheme.Pop_up" />
+        <activity
+            android:name=".Pop2"
+            android:theme="@style/AppTheme.Pop_up" />
     </application>
 
 </manifest>

@@ -8,6 +8,7 @@
     tools:context=".MainActivity">
 
 
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="200dp"
@@ -52,7 +53,6 @@
         android:layout_marginRight="28dp"
         android:layout_marginBottom="81dp"
         android:onClick="onClick"
-        android:text="@string/pierde"
         android:background="@drawable/cry"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -70,5 +70,6 @@
         android:background="@drawable/moneyyy"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/Pierde" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
