@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navi);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeActivity()).commit();
     }
     private void showLoginDialog() {
         Login login = new Login();
