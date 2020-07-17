@@ -17,7 +17,8 @@ public class Money {
         if(getSum() > s){
             setSum(getSum() - s);
         }else{
-            setSum(0);
+            setSum(-1);
+
         }
     }
 

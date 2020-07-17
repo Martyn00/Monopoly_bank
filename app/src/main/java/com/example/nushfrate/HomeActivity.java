@@ -27,12 +27,14 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
         private int code = 0;
         private int code1 = 1;
         private Button button;
+        
 
 
         @Nullable
         public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
 
             View v = inflater.inflate(R.layout.home_activity, container, false);
+
 
             TextView theMoneyText = (TextView) v.findViewById(R.id.textView2);
             theMoneyText.setText(String.valueOf(bani.getSum()));
@@ -51,45 +53,9 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
 
 
         }
-
-
-        @Override
-        public void onClick(View view) {
-            TextView theMoneyText = (TextView) getActivity().findViewById(R.id.textView2);
-            String number, prop;
-            switch (view.getId()) {
-                case R.id.Pierde:
-                    MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.crowd_boo);
-                    mediaPlayer.start();
-                    Intent intent = new Intent(getActivity(), Pop.class);
-                    getActivity().startActivityForResult(intent, code);
-                    break;
-
-                case R.id.Primeste:
-                    MediaPlayer mediaPlayerL = MediaPlayer.create(getActivity(), R.raw.cha_ching);
-                    mediaPlayerL.start();
-                    Intent intentW = new Intent(getActivity(), Pop2.class);
-                    getActivity().startActivityForResult(intentW, code1);
-
-
-                    break;
-
-                case R.id.Quickadd:
-                    bani.cresteBani(200);
-                    theMoneyText.setText(String.valueOf(bani.getSum()));
-                    prop = "Saracule, ai trecut de start, poftim 200";
-                    MediaPlayer mediaPlayer200 = MediaPlayer.create(getActivity(), R.raw.cha_ching);
-                    mediaPlayer200.start();
-                    Toast.makeText(getActivity(), prop, Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + view.getId());
-            }
-        }
-
     @Override
     public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == code) {
             if (resultCode == Activity.RESULT_OK) {
                 String return_text = getActivity().getIntent().getStringExtra("com.sample.MESSAGE");
@@ -114,10 +80,44 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                     bani.cresteBani(Long.parseLong(return_text));
                     TextView theMoneyText = (TextView) getView().findViewById(R.id.textView2);
                     theMoneyText.setText(String.valueOf(bani.getSum()));
+                    Toast.makeText(getActivity(), "merge", Toast.LENGTH_SHORT).show();
                 }
             }
         }
     }
+
+        @Override
+        public void onClick(View view) {
+            TextView theMoneyText = (TextView) getActivity().findViewById(R.id.textView2);
+            String number, prop;
+            switch (view.getId()) {
+                case R.id.Pierde:
+                    MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.crowd_boo);
+                    mediaPlayer.start();
+                    Intent intent = new Intent(getActivity(), Pop.class);
+                    getActivity().startActivityForResult(intent, code);
+                    break;
+
+                case R.id.Primeste:
+                    MediaPlayer mediaPlayerL = MediaPlayer.create(getActivity(), R.raw.cha_ching);
+                    mediaPlayerL.start();
+                    Intent intentW = new Intent(getActivity(), Pop2.class);
+                    getActivity().startActivityForResult(intentW, code1);
+                    break;
+
+                case R.id.Quickadd:
+                    bani.cresteBani(200);
+                    theMoneyText.setText(String.valueOf(bani.getSum()));
+                    prop = "Saracule, ai trecut de start, poftim 200";
+                    MediaPlayer mediaPlayer200 = MediaPlayer.create(getActivity(), R.raw.cha_ching);
+                    mediaPlayer200.start();
+                    Toast.makeText(getActivity(), prop, Toast.LENGTH_SHORT).show();
+                    break;
+
+                default:
+                    throw new IllegalStateException("Unexpected value: " + view.getId());
+            }
+        }
 }
 
 
