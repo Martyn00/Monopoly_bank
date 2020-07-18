@@ -37,13 +37,16 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
 
 
             TextView theMoneyText = (TextView) v.findViewById(R.id.textView2);
-            theMoneyText.setText(String.valueOf(bani.getSum()));
+            theMoneyText.setText("$" + String.valueOf(bani.getSum()));
 
+            //iconite de random idee, zaruri si un om langa
+            Button btnRandom = (Button) v.findViewById(R.id.Random);
 
             ImageButton btnPierde = (ImageButton) v.findViewById(R.id.Pierde);
             ImageButton btnPrimeste = (ImageButton) v.findViewById(R.id.Primeste);
             ImageButton btnQuickAdd = (ImageButton) v.findViewById(R.id.Quickadd);
 
+            btnRandom.setOnClickListener(this);
             btnPierde.setOnClickListener(this);
             btnPrimeste.setOnClickListener(this);
             btnQuickAdd.setOnClickListener(this);
@@ -85,6 +88,8 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                 default:
                     throw new IllegalStateException("Unexpected value: " + view.getId());
             }
+
+
         }
 
 
