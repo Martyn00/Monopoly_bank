@@ -53,15 +53,15 @@
         android:id="@+id/Pierde"
         android:layout_width="100sp"
         android:layout_height="100sp"
-        android:layout_centerInParent="true"
         android:layout_alignBottom="@id/textView2"
-        android:layout_marginBottom="-319dp"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="-160dp"
+        android:layout_marginBottom="-316dp"
         android:background="@drawable/cry"
         android:onClick="onClick"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Pierde"
-        android:layout_marginRight="-160dp" />
+        tools:text="Pierde" />
 
     <ImageButton
         android:id="@+id/Quickadd"
