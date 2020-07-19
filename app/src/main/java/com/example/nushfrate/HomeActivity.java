@@ -1,6 +1,7 @@
 package com.example.nushfrate;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.media.MediaPlayer;
@@ -23,18 +24,21 @@ import static java.lang.Long.parseLong;
 
 public class HomeActivity extends Fragment implements View.OnClickListener {
 
-    Money bani = new Money(1500);
+        Money bani = new Money(1500);;
         private int code = 0;
         private int code1 = 1;
         private Button button;
+        private HomeActivityListener listener;
 
+        public interface HomeActivityListener {
+            void onInputHomeSent(Money input);
+        }
 
 
         @Nullable
         public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
 
             View v = inflater.inflate(R.layout.home_activity, container, false);
-
 
             TextView theMoneyText = (TextView) v.findViewById(R.id.textView2);
             theMoneyText.setText("$" + String.valueOf(bani.getSum()));
@@ -56,7 +60,6 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
 
 
         }
-
         @Override
         public void onClick(View view) {
             TextView theMoneyText = (TextView) getActivity().findViewById(R.id.textView2);
@@ -83,6 +86,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                     MediaPlayer mediaPlayer200 = MediaPlayer.create(getActivity(), R.raw.cha_ching);
                     mediaPlayer200.start();
                     Toast.makeText(getActivity(), prop, Toast.LENGTH_SHORT).show();
+                    listener.onInputHomeSent(bani);
                     break;
 
                 default:
@@ -91,7 +95,6 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
 
 
         }
-
 
     @Override
     public void onActivityResult (int requestCode, int resultCode, @Nullable Intent data) {
@@ -108,8 +111,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                         String prop = "Ai pierdut BOSS=(((";
                         Toast.makeText(getActivity(), prop, Toast.LENGTH_SHORT).show();
                     }
-
-
+                    listener.onInputHomeSent(bani);
                 }
             }
         }
@@ -123,10 +125,29 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                     theMoneyText.setText(String.valueOf(bani.getSum()));
                     Toast.makeText(getActivity(), "merge", Toast.LENGTH_SHORT).show();
                 }
+                listener.onInputHomeSent(bani);
             }
         }
     }
+    public void updateBani(Money newSum){
+            bani.setSum(newSum.getSum());
+    }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof HomeActivityListener){
+            listener = (HomeActivityListener) context;
+        }else{
+
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
 }
 
 

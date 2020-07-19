@@ -21,6 +21,9 @@ public class Money {
 
         }
     }
+    public String toString(){
+        return String.valueOf(sum);
+    }
 
     public void cresteBani(long s){
         setSum(getSum() + s);
