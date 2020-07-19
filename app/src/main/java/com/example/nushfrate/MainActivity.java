@@ -15,13 +15,14 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements Login.LoginListener, HomeActivity.HomeActivityListener {
+public class MainActivity extends AppCompatActivity implements Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener {
 
     public final Money buget = new Money(1500);;
     private HomeActivity homeActivity;
     private History history;
     private Pay pay;
     private Scan scan;
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
 
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navi);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeActivity()).commit();
     }
     private void showLoginDialog() {
@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
+        user = login.username;
     }
 
     @Override
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
                             selectedFragment = history;
                             break;
                         case R.id.nav_pay:
+                            pay.updateBani(buget);
                             selectedFragment = pay;
                             break;
                         case R.id.nav_scan:
@@ -87,6 +89,11 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
                 }
             };
     public void onInputHomeSent(Money input){
+        buget.setSum(input.getSum());
+    }
+
+    @Override
+    public void onInputPaySent(Money input) {
         buget.setSum(input.getSum());
     }
 }

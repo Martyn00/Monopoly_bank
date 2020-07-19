@@ -1,5 +1,6 @@
 package com.example.nushfrate;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ public class Pay extends Fragment implements View.OnClickListener {
         Generator = (Button) v.findViewById(R.id.Button);
         text = (EditText) v.findViewById(R.id.Lose);
         Generator.setOnClickListener(this);
+        Toast.makeText(getActivity(), buget.toString(), Toast.LENGTH_SHORT).show();
         return v;
     }
 
@@ -49,4 +51,22 @@ public class Pay extends Fragment implements View.OnClickListener {
         }
     }
 
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof Pay.Paylistener){
+            listener = (Pay.Paylistener) context;
+        }else{
+
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+    public void updateBani(Money value){
+        buget.setSum(value.getSum());
+    }
 }

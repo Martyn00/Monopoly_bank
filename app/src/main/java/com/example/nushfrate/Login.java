@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class Login extends AppCompatDialogFragment {
     private EditText editTextUsername;
     private LoginListener loginListener;
-
+    public String username;
 
     @NonNull
     @Override
@@ -32,7 +32,7 @@ public class Login extends AppCompatDialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        String username = editTextUsername.getText().toString();
+                        username = editTextUsername.getText().toString();
                         loginListener.applyText(username);
 
                     }
