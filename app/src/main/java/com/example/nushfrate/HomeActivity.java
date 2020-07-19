@@ -24,7 +24,7 @@ import static java.lang.Long.parseLong;
 
 public class HomeActivity extends Fragment implements View.OnClickListener {
 
-        Money bani = new Money(1500);;
+        Money bani = new Money(1500);
         private int code = 0;
         private int code1 = 1;
         private Button button;
