@@ -2,10 +2,17 @@ package com.example.nushfrate;
 
 public class Money {
     private long sum;
+    private String user;
     public Money(long x){
         this.sum = x;
+        user = "Unknown";
     }
-
+    public void setUser(String username) {
+        this.user = username;
+    }
+    public String getUser(){
+        return this.user;
+    }
     public void setSum(long sum) {
         this.sum = sum;
     }

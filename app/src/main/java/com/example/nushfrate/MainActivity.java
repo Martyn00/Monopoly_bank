@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
         history = new History();
         pay = new Pay();
         scan = new Scan();
+
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firsStart = prefs.getBoolean("firsStart", true);
 
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
-        user = login.username;
+        buget.setUser(login.username);
     }
 
     @Override
