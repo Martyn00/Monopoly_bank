@@ -26,6 +26,7 @@ public class Pay extends Fragment implements View.OnClickListener {
     Money buget = new Money(1500);
     EditText text;
     Button Generator;
+    ImageView img_qr;
     private Paylistener listener;
     public interface Paylistener{
         void onInputPaySent(Money input);
@@ -33,11 +34,12 @@ public class Pay extends Fragment implements View.OnClickListener {
     @Nullable
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
         View v = inflater.inflate(R.layout.pay, container, false);
-
+        //buget = new Money(1500);
         Generator = (Button) v.findViewById(R.id.Button);
         text = (EditText) v.findViewById(R.id.Lose);
         Generator.setOnClickListener(this);
-        Toast.makeText(getActivity(), buget.toString(), Toast.LENGTH_SHORT).show();
+        img_qr = (ImageView) v.findViewById(R.id.imageView);
+        Toast.makeText(getActivity(), buget.getUser(), Toast.LENGTH_SHORT).show();
         return v;
     }
 
@@ -46,8 +48,16 @@ public class Pay extends Fragment implements View.OnClickListener {
         String Bani = text.getText().toString();
         if( view.getId() == R.id.Button){
             buget.scadeBani(parseLong(Bani));
-            Toast.makeText(getActivity(), Bani, Toast.LENGTH_SHORT).show();
             listener.onInputPaySent(buget);
+            String Parse = buget.getUser() + " " + buget.getSum() + " " + Bani;
+            Toast.makeText(getActivity(), Parse , Toast.LENGTH_SHORT).show();
+            try{
+                BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
+                Bitmap bitmap = barcodeEncoder.encodeBitmap(Parse, BarcodeFormat.QR_CODE, 400, 400);
+                img_qr.setImageBitmap(bitmap);
+            } catch (Exception e){
+
+            }
         }
     }
 
@@ -67,6 +77,8 @@ public class Pay extends Fragment implements View.OnClickListener {
         listener = null;
     }
     public void updateBani(Money value){
-        buget.setSum(value.getSum());
+       buget.setSum(value.getSum());
+       buget.setUser(value.getUser());
+       System.out.println(value.getUser() + "  Mergee");
     }
 }

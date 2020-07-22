@@ -11,22 +11,32 @@
         android:id="@+id/Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
         android:text="Generate QR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Lose" />
+        app:layout_constraintTop_toBottomOf="@+id/Lose"
+        android:layout_below="@+id/Lose"/>
 
     <EditText
         android:id="@+id/Lose"
         android:layout_width="310dp"
         android:layout_height="57dp"
-        android:layout_above="@+id/Button"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Loooose"
 
         android:inputType="numberDecimal" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="314dp"
+        android:layout_height="329dp"
+        android:layout_below="@+id/Button"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="75dp"
+        app:srcCompat="?attr/actionModeSelectAllDrawable" />
 
 </RelativeLayout>
