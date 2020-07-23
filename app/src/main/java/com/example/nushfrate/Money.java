@@ -40,3 +40,7 @@ public class Money {
         return false;
     }
 }
+
+
+//<uses-feature android:name="android.hardware.camera"/>
+//<uses-feature android:name="android.hardware.camera.autofocus"/>

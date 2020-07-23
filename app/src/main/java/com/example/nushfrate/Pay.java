@@ -34,7 +34,6 @@ public class Pay extends Fragment implements View.OnClickListener {
     @Nullable
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
         View v = inflater.inflate(R.layout.pay, container, false);
-        //buget = new Money(1500);
         Generator = (Button) v.findViewById(R.id.Button);
         text = (EditText) v.findViewById(R.id.Lose);
         Generator.setOnClickListener(this);
