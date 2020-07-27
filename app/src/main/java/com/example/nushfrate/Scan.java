@@ -32,6 +32,7 @@ public class Scan extends Fragment implements View.OnClickListener{
         View v =  inflater.inflate(R.layout.scan, container, false);
         Scan = (Button) v.findViewById(R.id.button);
         Scan.setOnClickListener(this);
+        Toast.makeText(getActivity(), "SCan   , " + buget.getUser(), Toast.LENGTH_SHORT).show();
         return v;
     }
 
@@ -56,7 +57,7 @@ public class Scan extends Fragment implements View.OnClickListener{
                 Toast.makeText(getActivity(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 Scanned = result.getContents();
                 String[] words = Scanned.split(" ");
-                String bani = words[1];
+                Toast.makeText(getActivity(), "Scanned: " + words[0], Toast.LENGTH_LONG).show();
                 buget.cresteBani(parseLong(words[1]));
                 listener.onInputScanSent(buget);
             }

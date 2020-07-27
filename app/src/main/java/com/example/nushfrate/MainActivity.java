@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
             showLoginDialog();
             buget.setSum(1500);
         }
-
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navi);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeActivity()).commit();
+        homeActivity.updateBani(buget);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  homeActivity).commit();
     }
     private void showLoginDialog() {
         Login login = new Login();
@@ -52,18 +52,20 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
-        buget.setUser(login.username);
-
+        System.out.println(buget.getUser());
+        System.out.println(login.username);
     }
 
     @Override
     public void applyText(String username) {
-        if (username.equals("")){
-            showLoginDialog();
+        Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
+                if (username.equals("")){
+            //showLoginDialog();
             Toast.makeText(this, "One character minimum", Toast.LENGTH_SHORT).show();
     }
         else
         {
+            buget.setUser(username);
             Toast.makeText(this, "Salut, " + username, Toast.LENGTH_SHORT).show();
         }
 

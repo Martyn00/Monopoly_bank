@@ -39,7 +39,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
         public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
 
             View v = inflater.inflate(R.layout.home_activity, container, false);
-
+            Toast.makeText(getActivity(), "Salutsssss, " + bani.getUser(), Toast.LENGTH_SHORT).show();
             TextView theMoneyText = (TextView) v.findViewById(R.id.textView2);
             theMoneyText.setText("$" + String.valueOf(bani.getSum()));
 
@@ -131,6 +131,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
     }
     public void updateBani(Money newSum){
             bani.setSum(newSum.getSum());
+            bani.setUser(newSum.getUser());
     }
 
     @Override

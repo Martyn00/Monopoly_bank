@@ -48,6 +48,7 @@ public class Pay extends Fragment implements View.OnClickListener {
             buget.scadeBani(parseLong(Bani));
             listener.onInputPaySent(buget);
             String Parse = buget.getUser() + " " + Bani;
+            Toast.makeText(getActivity(), Parse, Toast.LENGTH_LONG).show();
             try{
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 Bitmap bitmap = barcodeEncoder.encodeBitmap(Parse, BarcodeFormat.QR_CODE, 400, 400);
