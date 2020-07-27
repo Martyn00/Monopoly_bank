@@ -1,32 +1,38 @@
 package com.example.nushfrate;
 
 import android.content.SharedPreferences;
+import android.media.MediaSession2Service;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
 public class MainActivity extends AppCompatActivity implements Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener {
 
-    public Money buget = new Money(1500);
+    public final Money buget = new Money(1500);;
     private HomeActivity homeActivity;
     private History history;
     private Pay pay;
     private Scan scan;
-    String hey = new String();
+    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         homeActivity = new HomeActivity();
         history = new History();
         pay = new Pay();
         scan = new Scan();
+
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firsStart = prefs.getBoolean("firsStart", true);
 
@@ -34,24 +40,34 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
             showLoginDialog();
             buget.setSum(1500);
         }
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navi);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, homeActivity).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeActivity()).commit();
     }
     private void showLoginDialog() {
         Login login = new Login();
+        login.setCancelable(false);
         login.show(getSupportFragmentManager(), "login");
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
+        buget.setUser(login.username);
+
     }
 
     @Override
     public void applyText(String username) {
-        Toast.makeText(this, "Salut, " +  username, Toast.LENGTH_SHORT).show();
-        buget.setUser(username);
-        homeActivity.updateBani(buget);
+        if (username.equals("")){
+            showLoginDialog();
+            Toast.makeText(this, "One character minimum", Toast.LENGTH_SHORT).show();
+    }
+        else
+        {
+            Toast.makeText(this, "Salut, " + username, Toast.LENGTH_SHORT).show();
+        }
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -85,13 +101,11 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
             };
     public void onInputHomeSent(Money input){
         buget.setSum(input.getSum());
-        buget.setUser(input.getUser());
     }
 
     @Override
     public void onInputPaySent(Money input) {
         buget.setSum(input.getSum());
-        buget.setUser(input.getUser());
     }
 }
 

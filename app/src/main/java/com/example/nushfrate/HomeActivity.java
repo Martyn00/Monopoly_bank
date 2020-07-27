@@ -23,11 +23,13 @@ import androidx.fragment.app.Fragment;
 import static java.lang.Long.parseLong;
 
 public class HomeActivity extends Fragment implements View.OnClickListener {
+
         Money bani = new Money(1500);
         private int code = 0;
         private int code1 = 1;
         private Button button;
         private HomeActivityListener listener;
+
         public interface HomeActivityListener {
             void onInputHomeSent(Money input);
         }
@@ -35,11 +37,15 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
 
         @Nullable
         public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
+
             View v = inflater.inflate(R.layout.home_activity, container, false);
+
             TextView theMoneyText = (TextView) v.findViewById(R.id.textView2);
             theMoneyText.setText("$" + String.valueOf(bani.getSum()));
+
             //iconite de random idee, zaruri si un om langa
             Button btnRandom = (Button) v.findViewById(R.id.Random);
+
             ImageButton btnPierde = (ImageButton) v.findViewById(R.id.Pierde);
             ImageButton btnPrimeste = (ImageButton) v.findViewById(R.id.Primeste);
             ImageButton btnQuickAdd = (ImageButton) v.findViewById(R.id.Quickadd);
@@ -48,6 +54,8 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             btnPierde.setOnClickListener(this);
             btnPrimeste.setOnClickListener(this);
             btnQuickAdd.setOnClickListener(this);
+
+
             return v;
 
 
@@ -74,16 +82,17 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                 case R.id.Quickadd:
                     bani.cresteBani(200);
                     theMoneyText.setText(String.valueOf(bani.getSum()));
-                    prop = "Saracule, ai trecut de start, poftim 200   " + bani.getUser();
+                    prop = "Saracule, ai trecut de start, poftim 200";
                     MediaPlayer mediaPlayer200 = MediaPlayer.create(getActivity(), R.raw.cha_ching);
                     mediaPlayer200.start();
                     Toast.makeText(getActivity(), prop, Toast.LENGTH_SHORT).show();
+                    listener.onInputHomeSent(bani);
                     break;
 
                 default:
                     throw new IllegalStateException("Unexpected value: " + view.getId());
             }
-            listener.onInputHomeSent(bani);
+
 
         }
 
@@ -102,6 +111,7 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                         String prop = "Ai pierdut BOSS=(((";
                         Toast.makeText(getActivity(), prop, Toast.LENGTH_SHORT).show();
                     }
+                    listener.onInputHomeSent(bani);
                 }
             }
         }
@@ -121,7 +131,6 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
     }
     public void updateBani(Money newSum){
             bani.setSum(newSum.getSum());
-            bani.setUser(newSum.getUser());
     }
 
     @Override
