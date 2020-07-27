@@ -38,7 +38,6 @@ public class Pay extends Fragment implements View.OnClickListener {
         text = (EditText) v.findViewById(R.id.Lose);
         Generator.setOnClickListener(this);
         img_qr = (ImageView) v.findViewById(R.id.imageView);
-        Toast.makeText(getActivity(), buget.getUser(), Toast.LENGTH_SHORT).show();
         return v;
     }
 
@@ -48,8 +47,7 @@ public class Pay extends Fragment implements View.OnClickListener {
         if( view.getId() == R.id.Button){
             buget.scadeBani(parseLong(Bani));
             listener.onInputPaySent(buget);
-            String Parse = buget.getUser() + " " + buget.getSum() + " " + Bani;
-            Toast.makeText(getActivity(), Parse , Toast.LENGTH_SHORT).show();
+            String Parse = buget.getUser() + " " + Bani;
             try{
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 Bitmap bitmap = barcodeEncoder.encodeBitmap(Parse, BarcodeFormat.QR_CODE, 400, 400);
@@ -78,6 +76,5 @@ public class Pay extends Fragment implements View.OnClickListener {
     public void updateBani(Money value){
        buget.setSum(value.getSum());
        buget.setUser(value.getUser());
-       System.out.println(value.getUser() + "  Mergee");
     }
 }

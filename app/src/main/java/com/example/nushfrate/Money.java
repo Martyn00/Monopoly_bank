@@ -2,7 +2,7 @@ package com.example.nushfrate;
 
 public class Money {
     private long sum;
-    public String user;
+    private String user;
     public Money(long x){
         this.sum = x;
         this.user = "Unknown";

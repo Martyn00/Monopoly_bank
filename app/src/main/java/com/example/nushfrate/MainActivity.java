@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
     private History history;
     private Pay pay;
     private Scan scan;
-    private String user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,16 +88,16 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
                             selectedFragment = pay;
                             break;
                         case R.id.nav_scan:
+                            scan.updateBani(buget);
                             selectedFragment = scan;
                             break;
                     }
 
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
-
-
                     return true;
                 }
             };
+    @Override
     public void onInputHomeSent(Money input){
         buget.setSum(input.getSum());
     }
@@ -107,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
     public void onInputPaySent(Money input) {
         buget.setSum(input.getSum());
     }
+
 }
 
 

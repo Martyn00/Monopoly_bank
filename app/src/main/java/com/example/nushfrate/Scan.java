@@ -1,5 +1,6 @@
 package com.example.nushfrate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,8 +17,13 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 public class Scan extends Fragment implements View.OnClickListener{
+    private Scanlistener listener;
+    public interface Scanlistener{
+        void onInputScanSent(Money input);
+    }
     Button Scan;
     String Scanned;
+    Money buget = new Money(1500);
     @Nullable
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
         View v =  inflater.inflate(R.layout.scan, container, false);
@@ -30,8 +36,7 @@ public class Scan extends Fragment implements View.OnClickListener{
     public void onClick(View view) {
         if(view.getId() == R.id.button){
             IntentIntegrator integrator = new IntentIntegrator(this.getActivity());
-//            integrator.setDesiredBarcodeFormats(IntentIntegrator.ONE_D_CODE_TYPES);
-            integrator.setPrompt("Scan a barcode");
+            integrator.setPrompt("Scan a QRcode");
             integrator.setCameraId(0);  // Use a specific camera of the device
             integrator.setBeepEnabled(false);
             integrator.setBarcodeImageEnabled(true);
@@ -47,11 +52,29 @@ public class Scan extends Fragment implements View.OnClickListener{
             } else {
                 Toast.makeText(getActivity(), "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 Scanned = result.getContents();
-                System.out.println(Scanned);
+                listener.onInputScanSent(buget);
             }
         } else {
-        super.onActivityResult(requestCode, resultCode, data);
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+    public void updateBani(Money value){
+        buget.setSum(value.getSum());
+        buget.setUser(value.getUser());
+    }
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if(context instanceof Scan.Scanlistener){
+            listener = (Scan.Scanlistener) context;
+        }else{
+
         }
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
 }
