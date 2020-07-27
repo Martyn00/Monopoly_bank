@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener {
+public class MainActivity extends AppCompatActivity implements Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener, Scan.Scanlistener{
 
     public final Money buget = new Money(1500);;
     private HomeActivity homeActivity;
@@ -99,6 +99,11 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
             };
     @Override
     public void onInputHomeSent(Money input){
+        buget.setSum(input.getSum());
+    }
+
+    @Override
+    public void onInputScanSent(Money input) {
         buget.setSum(input.getSum());
     }
 
