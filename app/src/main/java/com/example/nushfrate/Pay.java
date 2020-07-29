@@ -52,6 +52,7 @@ public class Pay extends Fragment implements View.OnClickListener {
             try{
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 Bitmap bitmap = barcodeEncoder.encodeBitmap(Parse, BarcodeFormat.QR_CODE, 400, 400);
+
                 img_qr.setImageBitmap(bitmap);
             } catch (Exception e){
 

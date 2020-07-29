@@ -1,5 +1,6 @@
 package com.example.nushfrate;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaSession2Service;
 import android.os.Bundle;
@@ -33,22 +34,21 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
         scan = new Scan();
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
-        boolean firsStart = prefs.getBoolean("firsStart", true);
+        boolean firstStart = prefs.getBoolean("firstStart", true);
 
-        if (firsStart) {
+        if (firstStart) {
             showLoginDialog();
             buget.setSum(1500);
         }
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navi);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
-        homeActivity.updateBani(buget);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  homeActivity).commit();
     }
     private void showLoginDialog() {
         Login login = new Login();
         login.setCancelable(false);
         login.show(getSupportFragmentManager(), "login");
-        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
@@ -58,11 +58,9 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
 
     @Override
     public void applyText(String username) {
-        Toast.makeText(this, username, Toast.LENGTH_SHORT).show();
-                if (username.equals("")){
-            //showLoginDialog();
+        if (username.equals("")){
             Toast.makeText(this, "One character minimum", Toast.LENGTH_SHORT).show();
-    }
+        }
         else
         {
             buget.setUser(username);
@@ -112,6 +110,36 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
     @Override
     public void onInputPaySent(Money input) {
         buget.setSum(input.getSum());
+    }
+
+    private void savePreferences() {
+        SharedPreferences settings = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = settings.edit();
+
+        String UnameValue = buget.getUser();
+        editor.putString("user", UnameValue);
+        editor.putBoolean("firstStart", false);
+        editor.commit();
+    }
+
+    private void loadPreferences() {
+        SharedPreferences settings = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+//
+//        // Get value
+        buget.setUser(settings.getString("user", "Unknown"));
+    }
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        savePreferences();
+
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadPreferences();
     }
 
 }

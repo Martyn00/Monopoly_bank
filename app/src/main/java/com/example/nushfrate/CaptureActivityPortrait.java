@@ -14,6 +14,5 @@ public class CaptureActivityPortrait extends CaptureActivity {
         super.onCreate(savedInstanceState, persistentState);
         
     }
-    Intent intent = getIntent();
 
 }
