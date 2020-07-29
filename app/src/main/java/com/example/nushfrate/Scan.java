@@ -44,7 +44,7 @@ public class Scan extends Fragment implements View.OnClickListener{
             integrator.setCameraId(0);  // Use a specific camera of the device
             integrator.setBeepEnabled(false);
             integrator.setBarcodeImageEnabled(true);
-            integrator.forSupportFragment(this).initiateScan();
+            IntentIntegrator.forSupportFragment(this).initiateScan();
         }
     }
     @Override

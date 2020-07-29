@@ -26,9 +26,13 @@
         <activity
             android:name=".Pop2"
             android:theme="@style/AppTheme.Pop_up" />
+        <activity
+            android:name=".RandomPlayers"/>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
     </application>
 
 </manifest>

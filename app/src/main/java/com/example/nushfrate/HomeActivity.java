@@ -44,11 +44,11 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             theMoneyText.setText("$" + String.valueOf(bani.getSum()));
 
             //iconite de random idee, zaruri si un om langa
-            Button btnRandom = (Button) v.findViewById(R.id.Random);
+            Button btnRandom =  v.findViewById(R.id.Random);
 
-            ImageButton btnPierde = (ImageButton) v.findViewById(R.id.Pierde);
-            ImageButton btnPrimeste = (ImageButton) v.findViewById(R.id.Primeste);
-            ImageButton btnQuickAdd = (ImageButton) v.findViewById(R.id.Quickadd);
+            ImageButton btnPierde = v.findViewById(R.id.Pierde);
+            ImageButton btnPrimeste = v.findViewById(R.id.Primeste);
+            ImageButton btnQuickAdd = v.findViewById(R.id.Quickadd);
 
             btnRandom.setOnClickListener(this);
             btnPierde.setOnClickListener(this);
@@ -62,14 +62,14 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
         }
         @Override
         public void onClick(View view) {
-            TextView theMoneyText = (TextView) getActivity().findViewById(R.id.textView2);
+            TextView theMoneyText = getActivity().findViewById(R.id.textView2);
             String number, prop;
             switch (view.getId()) {
                 case R.id.Pierde:
                     MediaPlayer mediaPlayer = MediaPlayer.create(getActivity(), R.raw.crowd_boo);
                     mediaPlayer.start();
                     Intent intent = new Intent(getActivity(), Pop.class);
-                   startActivityForResult(intent, code);
+                    startActivityForResult(intent, code);
                     break;
 
                 case R.id.Primeste:
@@ -85,9 +85,15 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
                     prop = "Saracule, ai trecut de start, poftim 200";
                     MediaPlayer mediaPlayer200 = MediaPlayer.create(getActivity(), R.raw.cha_ching);
                     mediaPlayer200.start();
-                    Toast.makeText(getActivity(), prop, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), prop, Toast.LENGTH_LONG).show();
                     listener.onInputHomeSent(bani);
                     break;
+
+                case R.id.Random:
+                    Intent intentR = new Intent(getActivity(), RandomPlayers.class);
+                    startActivity(intentR);
+                    break;
+
 
                 default:
                     throw new IllegalStateException("Unexpected value: " + view.getId());
