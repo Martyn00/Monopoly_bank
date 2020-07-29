@@ -14,5 +14,21 @@
         tools:layout_editor_absoluteX="119dp"
         tools:layout_editor_absoluteY="267dp" />
 
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="USERNAME" />
+
+    <Button
+        android:id="@+id/changeUser"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_below="@+id/username"
+        android:layout_centerHorizontal="true"
+        android:text="Change Username"/>
+
 
 </RelativeLayout>

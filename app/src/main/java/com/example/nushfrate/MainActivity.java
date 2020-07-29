@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  homeActivity).commit();
     }
-    private void showLoginDialog() {
+    public void showLoginDialog() {
         Login login = new Login();
         login.setCancelable(false);
         login.show(getSupportFragmentManager(), "login");
@@ -69,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements
         {
             buget.setUser(username);
             Toast.makeText(this, "Salut, " + username, Toast.LENGTH_SHORT).show();
+            connectivity.userText.setText(buget.getUser());
         }
 
     }
@@ -137,8 +138,6 @@ public class MainActivity extends AppCompatActivity implements
 
     private void loadPreferences() {
         SharedPreferences settings = getSharedPreferences("prefs", Context.MODE_PRIVATE);
-//
-//        // Get value
         buget.setUser(settings.getString("user", "Unknown"));
     }
 
@@ -156,5 +155,3 @@ public class MainActivity extends AppCompatActivity implements
     }
 
 }
-
-
