@@ -16,7 +16,8 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 
-public class MainActivity extends AppCompatActivity implements Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener, Scan.Scanlistener{
+public class MainActivity extends AppCompatActivity implements
+        Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener, Scan.Scanlistener, Connectivity.ConnectivityListener {
 
     public final Money buget = new Money(1500);;
     private HomeActivity homeActivity;
@@ -95,10 +96,10 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
                             selectedFragment = scan;
                             break;
                         case R.id.nav_connectivity:
+                            connectivity.updateBani(buget);
                             selectedFragment = connectivity;
                             break;
                     }
-
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, selectedFragment).commit();
                     return true;
                 }
@@ -118,6 +119,12 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
         buget.setSum(input.getSum());
     }
 
+    @Override
+    public void onInputConnectivitySent(Money input) {
+        buget.setUser(input.getUser());
+        buget.setSum(input.getSum());
+    }
+
     private void savePreferences() {
         SharedPreferences settings = getSharedPreferences("prefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
@@ -125,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
         String UnameValue = buget.getUser();
         editor.putString("user", UnameValue);
         editor.putBoolean("firstStart", false);
-        editor.commit();
+        editor.apply();
     }
 
     private void loadPreferences() {
