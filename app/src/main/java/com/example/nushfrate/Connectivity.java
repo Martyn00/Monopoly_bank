@@ -9,11 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-public class History extends Fragment {
+public class Connectivity extends Fragment {
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
-        return inflater.inflate(R.layout.history, container, false);
+        return inflater.inflate(R.layout.connectivity, container, false);
     }
 }
+

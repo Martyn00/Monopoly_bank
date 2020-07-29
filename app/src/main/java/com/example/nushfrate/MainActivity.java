@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
     private History history;
     private Pay pay;
     private Scan scan;
+    private Connectivity connectivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
         history = new History();
         pay = new Pay();
         scan = new Scan();
+        connectivity = new Connectivity();
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
             showLoginDialog();
             buget.setSum(1500);
         }
+
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navi);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  homeActivity).commit();
@@ -90,6 +93,9 @@ public class MainActivity extends AppCompatActivity implements Login.LoginListen
                         case R.id.nav_scan:
                             scan.updateBani(buget);
                             selectedFragment = scan;
+                            break;
+                        case R.id.nav_connectivity:
+                            selectedFragment = connectivity;
                             break;
                     }
 
