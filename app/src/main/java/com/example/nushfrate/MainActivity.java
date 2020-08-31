@@ -4,27 +4,33 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.media.MediaSession2Service;
 import android.os.Bundle;
+import android.service.autofill.AutofillService;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.room.Room;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity implements
         Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener, Scan.Scanlistener, Connectivity.ConnectivityListener {
 
-    public final Money buget = new Money(1500);;
+    public final Money buget = new Money(1500);
     private HomeActivity homeActivity;
     private History history;
     private Pay pay;
     private Scan scan;
     private Connectivity connectivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,11 +40,10 @@ public class MainActivity extends AppCompatActivity implements
         history = new History();
         pay = new Pay();
         scan = new Scan();
-        connectivity = new Connectivity();
+        connectivity = new Connectivity(getApplication());
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
-
         if (firstStart) {
             showLoginDialog();
             buget.setSum(1500);
@@ -56,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements
         SharedPreferences.Editor editor = prefs.edit();
         editor.putBoolean("firstStart", false);
         editor.apply();
-        System.out.println(buget.getUser());
-        System.out.println(login.username);
     }
 
     @Override

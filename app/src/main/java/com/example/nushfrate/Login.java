@@ -36,8 +36,6 @@ public class Login extends AppCompatDialogFragment {
                         loginListener.applyText(username);
 
                     }
-
-
                 });
 
         editTextUsername = view.findViewById(R.id.Username);

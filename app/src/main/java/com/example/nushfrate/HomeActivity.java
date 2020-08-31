@@ -22,9 +22,12 @@ import androidx.fragment.app.Fragment;
 
 import static java.lang.Long.parseLong;
 
+
 public class HomeActivity extends Fragment implements View.OnClickListener {
 
-        Money bani = new Money(1500);
+//    AppDatabase db = AppDatabase.getDatabase(getActivity());
+
+    Money bani = new Money(1500);
         private int code = 0;
         private int code1 = 1;
         private Button button;
@@ -41,7 +44,6 @@ public class HomeActivity extends Fragment implements View.OnClickListener {
             View v = inflater.inflate(R.layout.home_activity, container, false);
             TextView theMoneyText = (TextView) v.findViewById(R.id.textView2);
             theMoneyText.setText("$" + String.valueOf(bani.getSum()));
-
             //iconite de random idee, zaruri si un om langa
             Button btnRandom =  v.findViewById(R.id.Random);
 
