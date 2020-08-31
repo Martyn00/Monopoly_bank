@@ -43,16 +43,8 @@ public class Connectivity extends Fragment implements View.OnClickListener{
         userText = v.findViewById(R.id.username);
         userChange = v.findViewById(R.id.changeUser);
         userChange.setOnClickListener(this);
+        userText.setText(buget.getUser());
 
-//        UserViewModel model = new UserViewModel(app);
-//        User user = new User(1,buget.getUser(), buget.getSum());
-//        model.insert(user);
-//        LiveData<User> tt = model.getmUser();
-//        LiveData<String>  userName = Transformations.map(tt,user)
-//        })
-//        User aa = tt.getValue();
-//        Toast.makeText(getActivity(), aa.username,Toast.LENGTH_LONG).show();
-//        userText.setText(buget.getUser());
     return v;
     }
 
