@@ -1,13 +1,15 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-public class UserRepositoty {
+import java.util.List;
+
+public class UserRepository {
     private UserDao mUserDao;
-    private LiveData<User> mUser;
-    UserRepositoty(Application application){
+    private LiveData<List<User>> mUser;
+    UserRepository(Application application){
         AppDatabase db = AppDatabase.getDatabase(application);
         mUserDao = db.userDao();
         mUser = mUserDao.getUser();
@@ -17,10 +19,7 @@ public class UserRepositoty {
             mUserDao.insert(user);
         });
     }
-    LiveData<User> getUser(){
-//        AppDatabase.databaseWriteExecutor.execute(() -> {
-//            usr =  mUser;
-//        });
+    LiveData<List<User>> getUser(){
         return mUser;
     }
 }

@@ -1,6 +1,5 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 

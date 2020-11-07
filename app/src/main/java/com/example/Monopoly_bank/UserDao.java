@@ -1,4 +1,4 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -11,10 +11,10 @@ import java.util.List;
 
 @Dao
 public interface UserDao {
-    @Query("SELECT * FROM user_table LIMIT 1")
-    LiveData<User> getUser();
+    @Query("SELECT * FROM User")
+    LiveData<List<User>> getUser();
 
-    @Query("SELECT user_name FROM user_table")
+    @Query("SELECT user_name FROM User")
     String getUsername();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
@@ -22,5 +22,8 @@ public interface UserDao {
 
     @Delete
     void delete(User user);
+
+    @Delete
+    void deleteAll();
 
 }

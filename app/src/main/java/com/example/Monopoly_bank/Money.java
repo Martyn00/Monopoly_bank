@@ -1,4 +1,4 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
 public class Money {
     private long sum;

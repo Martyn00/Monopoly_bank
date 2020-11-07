@@ -1,29 +1,29 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.media.MediaSession2Service;
 import android.os.Bundle;
-import android.service.autofill.AutofillService;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import static java.security.AccessController.getContext;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity implements
-        Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener, Scan.Scanlistener, Connectivity.ConnectivityListener {
-
+        Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener, Scan.Scanlistener,
+        Connectivity.ConnectivityListener {
+    UserViewModel uvm;
+    private List<User> usrs = new ArrayList<>();
     public final Money buget = new Money(1500);
     private HomeActivity homeActivity;
     private History history;
@@ -35,17 +35,24 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        uvm = new UserViewModel(getApplication());
+        uvm.getmUser().observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+//                    System.out.println(users.get(0).username);
+                usrs.addAll(users);
+            }
+        });
         homeActivity = new HomeActivity();
         history = new History();
-        pay = new Pay();
+        pay = new Pay(getApplication());
         scan = new Scan();
         connectivity = new Connectivity(getApplication());
 
         SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         boolean firstStart = prefs.getBoolean("firstStart", true);
         if (firstStart) {
-            showLoginDialog();
+            showLoginDialog(1);
             buget.setSum(1500);
         }
 
@@ -53,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements
         bottomNav.setOnNavigationItemSelectedListener(navListener);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,  homeActivity).commit();
     }
-    public void showLoginDialog() {
-        Login login = new Login();
+    public void showLoginDialog(int x) {
+        Login login = new Login(x);
         login.setCancelable(false);
         login.show(getSupportFragmentManager(), "login");
         SharedPreferences prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE);
@@ -71,14 +78,33 @@ public class MainActivity extends AppCompatActivity implements
         else
         {
             buget.setUser(username);
+            User usr = new User(username, buget.getSum());
+            uvm.insert(usr);
             Toast.makeText(this, "Salut, " + username, Toast.LENGTH_SHORT).show();
-            connectivity.userText.setText(buget.getUser());
+        }
+
+    }
+    @Override
+    public void applyText1(String username) {
+        if (username.equals("")){
+            Toast.makeText(this, "One character minimum", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            buget.setUser(username);
+            User usr = new User(username, buget.getSum());
+            // BA FACE YAAA
+            uvm.insert(usr);
+//            System.out.println();
+            Toast.makeText(this, "Salut, " + usrs.get(0).username, Toast.LENGTH_SHORT).show();
+            connectivity.userText.setText(username);
         }
 
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @SuppressLint("NonConstantResourceId")
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;

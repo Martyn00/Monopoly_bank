@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.nushfrate">
+    package="com.example.Monopoly_bank">
     <application
         android:hardwareAccelerated="true"
         android:allowBackup="true"
@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity"
+        <activity android:name="com.example.Monopoly_bank.MainActivity"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true">
             <intent-filter>
@@ -17,17 +17,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CaptureActivityPortrait"
+        <activity android:name="com.example.Monopoly_bank.CaptureActivityPortrait"
             android:screenOrientation="portrait"
             android:stateNotNeeded="true" />
         <activity
-            android:name=".Pop"
+            android:name="com.example.Monopoly_bank.Pop"
             android:theme="@style/AppTheme.Pop_up" />
         <activity
-            android:name=".Pop2"
+            android:name="com.example.Monopoly_bank.Pop2"
             android:theme="@style/AppTheme.Pop_up" />
         <activity
-            android:name=".RandomPlayers"/>
+            android:name="com.example.Monopoly_bank.RandomPlayers"/>
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,5 +1,6 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
+import android.app.Application;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -14,11 +15,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 
 import com.google.zxing.BarcodeFormat;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
-import java.util.prefs.BackingStoreException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.Long.parseLong;
 
@@ -27,10 +30,19 @@ public class Pay extends Fragment implements View.OnClickListener {
     EditText text;
     Button Generator;
     ImageView img_qr;
+    List<User> usrs = new ArrayList<>();
+    UserViewModel uvm;
+    Application app;
+
+    Pay(Application app){
+        this.app = app;
+    }
+
     private Paylistener listener;
     public interface Paylistener{
         void onInputPaySent(Money input);
     }
+
     @Nullable
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
         View v = inflater.inflate(R.layout.pay, container, false);
@@ -38,17 +50,27 @@ public class Pay extends Fragment implements View.OnClickListener {
         text = (EditText) v.findViewById(R.id.Lose);
         Generator.setOnClickListener(this);
         img_qr = (ImageView) v.findViewById(R.id.imageView);
+        uvm = new UserViewModel(app);
+        uvm.getmUser().observe(this, new Observer<List<User>>() {
+            @Override
+            public void onChanged(List<User> users) {
+//                    System.out.println(users.get(0).username);
+                usrs.addAll(users);
+            }
+        });
         return v;
     }
 
+// Bug daca nu ii dai deloc intrare!!!!!
     @Override
     public void onClick(View view) {
         String Bani = text.getText().toString();
         if( view.getId() == R.id.Button){
+
             buget.scadeBani(parseLong(Bani));
             listener.onInputPaySent(buget);
             String Parse = buget.getUser() + " " + Bani;
-            Toast.makeText(getActivity(), Parse, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), usrs.get(0).username, Toast.LENGTH_LONG).show();
             try{
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 Bitmap bitmap = barcodeEncoder.encodeBitmap(Parse, BarcodeFormat.QR_CODE, 400, 400);
@@ -75,6 +97,7 @@ public class Pay extends Fragment implements View.OnClickListener {
         super.onDetach();
         listener = null;
     }
+    
     public void updateBani(Money value){
        buget.setSum(value.getSum());
        buget.setUser(value.getUser());

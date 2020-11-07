@@ -1,6 +1,5 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
-import android.content.ContentProviderClient;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;

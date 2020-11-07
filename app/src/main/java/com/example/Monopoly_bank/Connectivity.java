@@ -1,12 +1,10 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
@@ -15,12 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Transformations;
 import androidx.room.Room;
-
-import java.util.List;
-import java.util.Objects;
 
 
 public class Connectivity extends Fragment implements View.OnClickListener{
@@ -32,9 +25,10 @@ public class Connectivity extends Fragment implements View.OnClickListener{
     Connectivity(Application application){
     this.app = application;
     }
+
     public interface ConnectivityListener {
         void onInputConnectivitySent(Money input);
-        void showLoginDialog();
+        void showLoginDialog(int x);
     }
     @Nullable
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
@@ -47,19 +41,19 @@ public class Connectivity extends Fragment implements View.OnClickListener{
 
     return v;
     }
-
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.changeUser:
-                listener.showLoginDialog();
+                login();
+//                userText.setText(buget.getUser());
+                System.out.println(buget.getUser());
                 break;
 
             default:
                 throw new IllegalStateException("Unexpected value: " + view.getId());
         }
     }
-
         @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -80,6 +74,8 @@ public class Connectivity extends Fragment implements View.OnClickListener{
         buget.setSum(newSum.getSum());
         buget.setUser(newSum.getUser());
     }
-
+    public void login(){
+        listener.showLoginDialog(2);
+    }
 }
 

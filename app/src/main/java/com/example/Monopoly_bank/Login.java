@@ -1,10 +1,9 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,11 @@ public class Login extends AppCompatDialogFragment {
     private EditText editTextUsername;
     private LoginListener loginListener;
     public String username;
-
+    public Connectivity connectivity;
+    public int x;
+    public Login(int x){
+        this.x = x;
+    }
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -33,7 +36,11 @@ public class Login extends AppCompatDialogFragment {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         username = editTextUsername.getText().toString();
-                        loginListener.applyText(username);
+                        if(x == 1){
+                            loginListener.applyText(username);
+                        }else{
+                            loginListener.applyText1(username);
+                        }
 
                     }
                 });
@@ -49,13 +56,16 @@ public class Login extends AppCompatDialogFragment {
 
         try {
             loginListener = (LoginListener) context;
+//            loginListener1 = (LoginListener1) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString()+"nu nu");
         }
     }
 
+
     public interface LoginListener{
         void applyText(String username);
+        void applyText1(String username);
     }
 
 }

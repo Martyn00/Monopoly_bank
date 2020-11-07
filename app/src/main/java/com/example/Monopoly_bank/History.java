@@ -1,4 +1,4 @@
-package com.example.nushfrate;
+package com.example.Monopoly_bank;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
