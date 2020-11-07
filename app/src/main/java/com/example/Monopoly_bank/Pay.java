@@ -30,7 +30,7 @@ public class Pay extends Fragment implements View.OnClickListener {
     EditText text;
     Button Generator;
     ImageView img_qr;
-    List<User> usrs = new ArrayList<>();
+    User mainUser;
     UserViewModel uvm;
     Application app;
 
@@ -51,11 +51,11 @@ public class Pay extends Fragment implements View.OnClickListener {
         Generator.setOnClickListener(this);
         img_qr = (ImageView) v.findViewById(R.id.imageView);
         uvm = new UserViewModel(app);
-        uvm.getmUser().observe(this, new Observer<List<User>>() {
+        uvm.getmUser().observe(this, new Observer<User>() {
             @Override
-            public void onChanged(List<User> users) {
+            public void onChanged(User user) {
 //                    System.out.println(users.get(0).username);
-                usrs.addAll(users);
+                mainUser = user;
             }
         });
         return v;
@@ -70,7 +70,7 @@ public class Pay extends Fragment implements View.OnClickListener {
             buget.scadeBani(parseLong(Bani));
             listener.onInputPaySent(buget);
             String Parse = buget.getUser() + " " + Bani;
-            Toast.makeText(getActivity(), usrs.get(0).username, Toast.LENGTH_LONG).show();
+            Toast.makeText(getActivity(), mainUser.username, Toast.LENGTH_LONG).show();
             try{
                 BarcodeEncoder barcodeEncoder = new BarcodeEncoder();
                 Bitmap bitmap = barcodeEncoder.encodeBitmap(Parse, BarcodeFormat.QR_CODE, 400, 400);
