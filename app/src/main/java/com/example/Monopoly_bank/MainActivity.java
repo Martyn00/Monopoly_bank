@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity implements
         Login.LoginListener, HomeActivity.HomeActivityListener, Pay.Paylistener, Scan.Scanlistener,
         Connectivity.ConnectivityListener {
     UserViewModel uvm;
-    private List<User> usrs = new ArrayList<>();
+    private User mainUser;
     public final Money buget = new Money(1500);
     private HomeActivity homeActivity;
     private History history;
@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         uvm = new UserViewModel(getApplication());
-        uvm.getmUser().observe(this, new Observer<List<User>>() {
+        uvm.getmUser().observe(this, new Observer<User>() {
             @Override
-            public void onChanged(List<User> users) {
+            public void onChanged(User user) {
 //                    System.out.println(users.get(0).username);
-                usrs.addAll(users);
+                mainUser = user;
             }
         });
         homeActivity = new HomeActivity();
@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements
             buget.setUser(username);
             User usr = new User(username, buget.getSum());
             uvm.insert(usr);
+
             Toast.makeText(this, "Salut, " + username, Toast.LENGTH_SHORT).show();
         }
 
@@ -89,14 +90,10 @@ public class MainActivity extends AppCompatActivity implements
         if (username.equals("")){
             Toast.makeText(this, "One character minimum", Toast.LENGTH_SHORT).show();
         }
-        else
-        {
+        else {
             buget.setUser(username);
             User usr = new User(username, buget.getSum());
-            // BA FACE YAAA
-            uvm.insert(usr);
-//            System.out.println();
-            Toast.makeText(this, "Salut, " + usrs.get(0).username, Toast.LENGTH_SHORT).show();
+            uvm.updateName(username);
             connectivity.userText.setText(username);
         }
 

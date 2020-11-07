@@ -11,6 +11,7 @@
         android:layout_width="198dp"
         android:layout_height="122dp"
         android:text="Aici o sa fie multe chestii misto"
+        android:fontFamily=""
         tools:layout_editor_absoluteX="119dp"
         tools:layout_editor_absoluteY="267dp" />
 
