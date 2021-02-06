@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.room.Room;
 
 
@@ -22,6 +23,10 @@ public class Connectivity extends Fragment implements View.OnClickListener{
     private Button userChange;
     private Application app;
     Money buget = new Money(1500);
+
+    UserViewModel uvm;
+    User Mainuser;
+
     Connectivity(Application application){
     this.app = application;
     }
@@ -32,6 +37,13 @@ public class Connectivity extends Fragment implements View.OnClickListener{
     }
     @Nullable
     public View onCreateView(LayoutInflater inflater, @NonNull ViewGroup container, @NonNull Bundle savedInstancesState) {
+        uvm = new UserViewModel(app);
+        uvm.getmUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                Mainuser = user;
+            }
+        });
         View v =  inflater.inflate(R.layout.connectivity, container, false);
         Toast.makeText(getActivity(), buget.getUser() + buget.toString(), Toast.LENGTH_LONG).show();
         userText = v.findViewById(R.id.username);
@@ -46,8 +58,7 @@ public class Connectivity extends Fragment implements View.OnClickListener{
         switch (view.getId()) {
             case R.id.changeUser:
                 login();
-//                userText.setText(buget.getUser());
-                System.out.println(buget.getUser());
+                System.out.println(Mainuser.username);
                 break;
 
             default:

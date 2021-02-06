@@ -11,7 +11,7 @@ public class UserViewModel extends AndroidViewModel {
 
     private UserRepository mRepo;
 
-    LiveData<List<User>> mUser;
+    LiveData<User> mUser;
     public UserViewModel(Application application) {
         super(application);
         mRepo = new UserRepository(application);
@@ -20,7 +20,16 @@ public class UserViewModel extends AndroidViewModel {
     void insert(User user) {
         mRepo.insert(user);
     }
-    LiveData<List<User>> getmUser(){
+    void updateName(String name) {
+        mRepo.updateName(name);
+    }
+    void updateWorth(long value) {
+        mRepo.updateWorth(value);
+    }
+    String getUsername(){
+        return mRepo.getUsername();
+    }
+    LiveData<User> getmUser(){
         return mUser;
     }
 }

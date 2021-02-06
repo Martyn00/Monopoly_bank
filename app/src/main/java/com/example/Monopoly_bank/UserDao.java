@@ -12,18 +12,27 @@ import java.util.List;
 @Dao
 public interface UserDao {
     @Query("SELECT * FROM User")
-    LiveData<List<User>> getUser();
+    LiveData<User> getUser();
 
     @Query("SELECT user_name FROM User")
     String getUsername();
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-     void insert(User user);
+    void insert(User user);
+
+    @Query("SELECT * FROM User")
+    List<User> getUserStatic();
 
     @Delete
     void delete(User user);
 
-    @Delete
+    @Query("DELETE FROM User")
     void deleteAll();
+
+    @Query("UPDATE User SET user_name = :name WHERE uid = 1")
+    void updateName(String name);
+
+    @Query("UPDATE User SET worth = :value WHERE uid = 1")
+    void updateWorth(long value);
 
 }
